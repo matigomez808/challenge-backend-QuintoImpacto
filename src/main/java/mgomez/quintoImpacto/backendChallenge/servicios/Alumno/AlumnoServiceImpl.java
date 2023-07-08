@@ -1,11 +1,14 @@
 package mgomez.quintoImpacto.backendChallenge.servicios.Alumno;
 
+import mgomez.quintoImpacto.backendChallenge.dto.GuardarAlumno;
 import mgomez.quintoImpacto.backendChallenge.model.Alumno.Alumno;
 import mgomez.quintoImpacto.backendChallenge.repos.AlumnoRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class AlumnoServiceImpl implements AlumnoService {
 
     private final AlumnoRepository alumnoRepository;
@@ -15,13 +18,13 @@ public class AlumnoServiceImpl implements AlumnoService {
     }
 
     @Override
-    public Alumno guardarAlumno(Alumno alumno) {
-        return alumnoRepository.save(alumno);
+    public Alumno guardarAlumno(GuardarAlumno data) {
+        return alumnoRepository.save(new Alumno(data));
     }
 
     @Override
     public List<Alumno> listarAlumnosActivos() {
-        return listarAlumnosActivos();
+        return alumnoRepository.findAllByActivoTrue();
     }
 
     @Override
@@ -30,7 +33,7 @@ public class AlumnoServiceImpl implements AlumnoService {
     }
 
     @Override
-    public Alumno modificarIngrediente(Alumno alumnoModificado) {
+    public Alumno modificarAlumno(Alumno alumnoModificado) {
         return alumnoRepository.save(alumnoModificado);
     }
 

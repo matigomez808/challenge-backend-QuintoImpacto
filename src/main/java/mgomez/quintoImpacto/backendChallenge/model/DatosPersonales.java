@@ -2,8 +2,14 @@ package mgomez.quintoImpacto.backendChallenge.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.*;
 
 @Embeddable
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
 public class DatosPersonales {
 
     private String nombre;
@@ -12,5 +18,7 @@ public class DatosPersonales {
     @Column(unique = true)
     private String dni;
 
-
+    public DatosPersonales(String nombre) {
+        this.nombre = nombre;
+    }
 }

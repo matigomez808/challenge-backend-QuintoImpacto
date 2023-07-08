@@ -35,6 +35,19 @@ public class Curso {
             inverseJoinColumns = @JoinColumn(name="alumno_id")
     )
     private Set<Alumno> alumnos;
+    @Column(name = "turno")
+    @Enumerated(EnumType.STRING)
     private Turno turno;
+    @Column(name = "activo", nullable = false, columnDefinition="tinyint(1) default 1")
+    private boolean activo = true;
 
+
+    public Curso(String nombre, Profe profe) {
+        this.nombre = nombre;
+        this.profe = profe;
+    }
+
+    public Curso(String nombre) {
+        this.nombre = nombre;
+    }
 }
