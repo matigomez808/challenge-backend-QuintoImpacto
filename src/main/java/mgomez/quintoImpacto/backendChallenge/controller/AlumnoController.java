@@ -72,16 +72,16 @@ public class AlumnoController {
 
     }
 
-//    @PostMapping("/eliminar/{id}")
-//    void desactivarAlumno(@PathVariable Long id) {
-//        Alumno alumno = service.getAlumnoByID(id)
-//                .map(i -> {
-//                    i.setActivo(false);
-//                    return service.guardarAlumno(i);
-//                })
-//                .orElseThrow(() -> new AlumnoNotFoundException(id));
-//
-//    }
+    @PostMapping("/eliminar/{id}")
+    void desactivarAlumno(@PathVariable Long id) {
+        Alumno alumno = service.getAlumnoByID(id)
+                .map(i -> {
+                    i.setActivo(false);
+                    return service.modificarAlumno(i);
+                })
+                .orElseThrow(() -> new AlumnoNotFoundException(id));
+
+    }
 
 
 }

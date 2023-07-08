@@ -2,10 +2,8 @@ package mgomez.quintoImpacto.backendChallenge.model.Curso;
 
 import jakarta.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import mgomez.quintoImpacto.backendChallenge.dto.GuardarCurso;
 import mgomez.quintoImpacto.backendChallenge.model.Alumno.Alumno;
 import mgomez.quintoImpacto.backendChallenge.model.Profe.Profe;
 
@@ -15,6 +13,8 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
+@Getter
+@Setter
 @Entity(name = "curso")
 @Table(name="cursos")
 public class Curso {
@@ -42,12 +42,13 @@ public class Curso {
     private boolean activo = true;
 
 
-    public Curso(String nombre, Profe profe) {
-        this.nombre = nombre;
-        this.profe = profe;
+    public Curso(GuardarCurso data) {
+        this.nombre = data.nombre();
+        this.turno = data.turno();
     }
 
     public Curso(String nombre) {
         this.nombre = nombre;
     }
+
 }
