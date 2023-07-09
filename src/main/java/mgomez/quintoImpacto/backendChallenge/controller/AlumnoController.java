@@ -59,10 +59,11 @@ public class AlumnoController {
     public ResponseEntity<?> modificarAlumno(@RequestBody Alumno alumnoNuevo, @PathVariable Long id) {
         Alumno alumnoActualizado = service.getAlumnoByID(id)
                 .map(alumno -> {
-                    alumno.setNombre(alumnoNuevo.getNombre());
-                    return service.modificarAlumno(alumnoNuevo);
+                    alumno.setDatosContacto(alumnoNuevo.getDatosContacto());
+                    return service.modificarAlumno(alumno);
                 })
                 .orElseGet(() -> {
+                    System.out.println("orelseGet");
                     alumnoNuevo.setId(id);
                     return service.modificarAlumno(alumnoNuevo);
                 });

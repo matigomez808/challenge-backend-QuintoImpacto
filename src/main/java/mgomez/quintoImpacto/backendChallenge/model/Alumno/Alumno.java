@@ -42,7 +42,8 @@ public class Alumno {
     }
 
     public Alumno(GuardarAlumno data) {
-        this.datosPersonales = new DatosPersonales(data.nombre(), data.apellido(), data.dni());
+        this.datosPersonales = new DatosPersonales(data.datosPersonales());
+        this.datosContacto = new Contacto(data.contacto());
     }
 
     public void setNombre(String nombre) {

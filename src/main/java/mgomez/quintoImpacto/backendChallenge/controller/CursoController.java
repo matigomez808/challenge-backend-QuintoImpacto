@@ -2,10 +2,14 @@ package mgomez.quintoImpacto.backendChallenge.controller;
 
 import jakarta.validation.Valid;
 import mgomez.quintoImpacto.backendChallenge.dto.GuardarCurso;
+import mgomez.quintoImpacto.backendChallenge.errorHandling.alumno.AlumnoNotFoundException;
 import mgomez.quintoImpacto.backendChallenge.errorHandling.curso.CursoNotFoundException;
+import mgomez.quintoImpacto.backendChallenge.model.Alumno.Alumno;
 import mgomez.quintoImpacto.backendChallenge.model.Curso.Curso;
 import mgomez.quintoImpacto.backendChallenge.model.Curso.CursoAssembler;
+import mgomez.quintoImpacto.backendChallenge.servicios.Alumno.AlumnoServiceImpl;
 import mgomez.quintoImpacto.backendChallenge.servicios.Curso.CursoServiceImpl;
+import org.apache.coyote.Response;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
@@ -18,17 +22,22 @@ import java.util.stream.Collectors;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@RestController
+@RequestMapping("/curso")
 public class CursoController {
 
     private final CursoServiceImpl service;
     private final CursoAssembler assembler;
+    private final AlumnoServiceImpl serviceAlumno;
 
 
     public CursoController(
             CursoServiceImpl cursoService,
-            CursoAssembler assembler) {
+            CursoAssembler assembler,
+            AlumnoServiceImpl serviceAlumno) {
         this.service = cursoService;
         this.assembler = assembler;
+        this.serviceAlumno = serviceAlumno;
     }
 
     @GetMapping()
@@ -51,6 +60,17 @@ public class CursoController {
                 .body(entityModel);
     }
 
+
+
+    @PostMapping("/inscripcion/{cursoId}")
+    public ResponseEntity<?> inscribirAlumno(@PathVariable Long cursoId, @RequestBody Alumno alumno) {
+        Curso curso = service.getCursoById(cursoId).orElseThrow(() -> new CursoNotFoundException(cursoId));
+        Alumno alumnoInscripcion = serviceAlumno.getAlumnoByID(alumno.getId()).orElseThrow(() -> new AlumnoNotFoundException(alumno.getId()));
+        curso.inscribir(alumnoInscripcion);
+        service.guardarCurso(curso);
+        return ResponseEntity.ok().build();
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> modificarCurso(@RequestBody Curso cursoNuevo, @PathVariable Long id) {
         Curso cursoActualizado = service.getCursoById(id)
@@ -62,10 +82,8 @@ public class CursoController {
                     cursoNuevo.setId(id);
                     return service.modificarCurso(cursoNuevo);
                 });
-
         EntityModel<Curso> entityModel = assembler.toModel(cursoActualizado);
         return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
-
     }
 
     @PostMapping("/eliminar/{id}")
@@ -76,8 +94,5 @@ public class CursoController {
                     return service.modificarCurso(i);
                 })
                 .orElseThrow(() -> new CursoNotFoundException(id));
-
     }
-
-
 }

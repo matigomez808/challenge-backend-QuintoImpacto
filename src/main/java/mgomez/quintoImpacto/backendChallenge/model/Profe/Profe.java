@@ -1,10 +1,7 @@
 package mgomez.quintoImpacto.backendChallenge.model.Profe;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import mgomez.quintoImpacto.backendChallenge.model.Contacto;
 import mgomez.quintoImpacto.backendChallenge.model.Curso.Curso;
 import mgomez.quintoImpacto.backendChallenge.model.DatosPersonales;
@@ -35,5 +32,12 @@ public class Profe {
     public Profe(String nombre, String apellido, String dni, String direccion, String ciudad, String telefono) {
         this.datosPersonales = new DatosPersonales(nombre, apellido, dni);
         this.datosContacto = new Contacto(direccion, ciudad, telefono);
+    }
+    public String getName() {
+        return this.datosPersonales.getNombre();
+    }
+
+    public String getApellido() {
+        return this.datosPersonales.getApellido();
     }
 }

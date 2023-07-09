@@ -21,4 +21,9 @@ public class DatosPersonales {
     public DatosPersonales(String nombre) {
         this.nombre = nombre;
     }
+    public DatosPersonales(DatosPersonales datosPersonalesNuevos) {
+        this.nombre = datosPersonalesNuevos.getNombre();
+        this.apellido = datosPersonalesNuevos.getApellido();
+        this.dni = datosPersonalesNuevos.getDni();
+    }
 }

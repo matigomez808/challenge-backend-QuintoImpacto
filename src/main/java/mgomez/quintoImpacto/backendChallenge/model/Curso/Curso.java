@@ -25,9 +25,14 @@ public class Curso {
     private Long id;
     @Column(name = "nombre")
     private String nombre;
+
     @ManyToOne
     @JoinColumn(name = "curso_id")
     private Profe profe;
+
+    @Column(name = "profeName")
+    private String profeName;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "alumnos_curso",
@@ -47,8 +52,18 @@ public class Curso {
         this.turno = data.turno();
     }
 
-    public Curso(String nombre) {
+    public Curso(String nombre, Turno turno, Profe profe) {
         this.nombre = nombre;
+        this.turno = turno;
+        this.profe = profe;
+        this.profeName = profe.getName() + " " +  profe.getApellido();
     }
 
+    public void setProfe(Profe profe) {
+        this.profe = profe;
+    }
+
+    public void inscribir(Alumno alumno) {
+        this.alumnos.add(alumno);
+    }
 }

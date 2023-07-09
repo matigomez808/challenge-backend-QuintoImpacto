@@ -2,10 +2,12 @@ package mgomez.quintoImpacto.backendChallenge.servicios.Curso;
 
 import mgomez.quintoImpacto.backendChallenge.model.Curso.Curso;
 import mgomez.quintoImpacto.backendChallenge.repos.CursoRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CursoServiceImpl implements CursoService{
 
     private final CursoRepository cursoRepository;
