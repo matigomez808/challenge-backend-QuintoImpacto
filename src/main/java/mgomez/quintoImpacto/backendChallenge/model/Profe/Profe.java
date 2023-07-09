@@ -2,6 +2,7 @@ package mgomez.quintoImpacto.backendChallenge.model.Profe;
 
 import jakarta.persistence.*;
 import lombok.*;
+import mgomez.quintoImpacto.backendChallenge.dto.GuardarPersona;
 import mgomez.quintoImpacto.backendChallenge.model.Contacto;
 import mgomez.quintoImpacto.backendChallenge.model.Curso.Curso;
 import mgomez.quintoImpacto.backendChallenge.model.DatosPersonales;
@@ -12,6 +13,8 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
+@Getter
+@Setter
 @Entity(name = "profesor")
 @Table(name="profesores")
 public class Profe {
@@ -33,6 +36,12 @@ public class Profe {
         this.datosPersonales = new DatosPersonales(nombre, apellido, dni);
         this.datosContacto = new Contacto(direccion, ciudad, telefono);
     }
+
+    public Profe(GuardarPersona data) {
+        this.datosPersonales = new DatosPersonales(data.datosPersonales());
+        this.datosContacto = new Contacto(data.contacto());
+    }
+
     public String getName() {
         return this.datosPersonales.getNombre();
     }
@@ -40,4 +49,6 @@ public class Profe {
     public String getApellido() {
         return this.datosPersonales.getApellido();
     }
+
+
 }

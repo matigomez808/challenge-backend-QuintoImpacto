@@ -1,5 +1,6 @@
 package mgomez.quintoImpacto.backendChallenge.servicios.Profe;
 
+import mgomez.quintoImpacto.backendChallenge.dto.GuardarPersona;
 import mgomez.quintoImpacto.backendChallenge.model.Profe.Profe;
 import mgomez.quintoImpacto.backendChallenge.repos.ProfeRepository;
 
@@ -15,8 +16,8 @@ public class ProfeServiceImpl implements ProfeService{
     }
 
     @Override
-    public Profe guardarProfe(Profe profe) {
-        return profeRepository.save(profe);
+    public Profe guardarProfe(GuardarPersona data) {
+        return profeRepository.save(new Profe(data));
     }
 
     @Override
