@@ -16,6 +16,7 @@ endpoints:
 
 
 ejemplo de Create a /alumno o / profe:
+´´j́son
 {
 	"datosPersonales": {
                       "nombre": "Marta",
@@ -26,7 +27,7 @@ ejemplo de Create a /alumno o / profe:
 	              "ciudad": "Trucha",
 	              "telefono": "12345678"}
 }
-
+´´´
 ejemplo de Update /alumno o / profe:
 {
 	"datosContacto": {
