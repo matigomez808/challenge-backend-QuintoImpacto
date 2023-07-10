@@ -62,11 +62,7 @@ public class AlumnoController {
                     alumno.setDatosContacto(alumnoNuevo.getDatosContacto());
                     return service.modificarAlumno(alumno);
                 })
-                .orElseGet(() -> {
-                    System.out.println("orelseGet");
-                    alumnoNuevo.setId(id);
-                    return service.modificarAlumno(alumnoNuevo);
-                });
+                .orElseThrow(() -> new AlumnoNotFoundException(id));
 
         EntityModel<Alumno> entityModel = assembler.toModel(alumnoActualizado);
         return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);

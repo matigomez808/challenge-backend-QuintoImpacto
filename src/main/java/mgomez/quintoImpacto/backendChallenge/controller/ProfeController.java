@@ -58,11 +58,7 @@ public class ProfeController {
                     profe.setDatosContacto(profeNuevo.getDatosContacto());
                     return service.modificarProfe(profe);
                 })
-                .orElseGet(() -> {
-                    System.out.println("orelseGet");
-                    profeNuevo.setId(id);
-                    return service.modificarProfe(profeNuevo);
-                });
+                .orElseThrow(() -> new ProfeNotFoundException(id));
 
         EntityModel<Profe> entityModel = assembler.toModel(profeActualizado);
         return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
