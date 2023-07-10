@@ -1,6 +1,6 @@
 package mgomez.quintoImpacto.backendChallenge.servicios.Alumno;
 
-import mgomez.quintoImpacto.backendChallenge.dto.GuardarAlumno;
+import mgomez.quintoImpacto.backendChallenge.dto.GuardarPersona;
 import mgomez.quintoImpacto.backendChallenge.model.Alumno.Alumno;
 import mgomez.quintoImpacto.backendChallenge.repos.AlumnoRepository;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ public class AlumnoServiceImpl implements AlumnoService {
     }
 
     @Override
-    public Alumno guardarAlumno(GuardarAlumno data) {
+    public Alumno guardarAlumno(GuardarPersona data) {
         return alumnoRepository.save(new Alumno(data));
     }
 

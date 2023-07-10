@@ -2,7 +2,7 @@ package mgomez.quintoImpacto.backendChallenge.model.Alumno;
 
 import jakarta.persistence.*;
 import lombok.*;
-import mgomez.quintoImpacto.backendChallenge.dto.GuardarAlumno;
+import mgomez.quintoImpacto.backendChallenge.dto.GuardarPersona;
 import mgomez.quintoImpacto.backendChallenge.model.Contacto;
 import mgomez.quintoImpacto.backendChallenge.model.Curso.Curso;
 import mgomez.quintoImpacto.backendChallenge.model.DatosPersonales;
@@ -41,7 +41,7 @@ public class Alumno {
         this.datosContacto = new Contacto(direccion, ciudad, telefono);
     }
 
-    public Alumno(GuardarAlumno data) {
+    public Alumno(GuardarPersona data) {
         this.datosPersonales = new DatosPersonales(data.datosPersonales());
         this.datosContacto = new Contacto(data.contacto());
     }

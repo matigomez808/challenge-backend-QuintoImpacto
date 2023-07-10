@@ -23,6 +23,7 @@ public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "nombre")
     private String nombre;
 
@@ -65,5 +66,9 @@ public class Curso {
 
     public void inscribir(Alumno alumno) {
         this.alumnos.add(alumno);
+    }
+    public void asignar(Profe profe) {
+        this.profe = profe;
+        this.profeName = profe.getName() + " " +  profe.getApellido();
     }
 }

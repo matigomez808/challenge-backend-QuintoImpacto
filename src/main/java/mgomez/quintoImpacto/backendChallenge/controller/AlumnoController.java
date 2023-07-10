@@ -1,7 +1,7 @@
 package mgomez.quintoImpacto.backendChallenge.controller;
 
 import jakarta.validation.Valid;
-import mgomez.quintoImpacto.backendChallenge.dto.GuardarAlumno;
+import mgomez.quintoImpacto.backendChallenge.dto.GuardarPersona;
 import mgomez.quintoImpacto.backendChallenge.errorHandling.alumno.AlumnoNotFoundException;
 import mgomez.quintoImpacto.backendChallenge.model.Alumno.Alumno;
 import mgomez.quintoImpacto.backendChallenge.model.Alumno.AlumnoAssembler;
@@ -48,7 +48,7 @@ public class AlumnoController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> agregarAlumno(@RequestBody @Valid GuardarAlumno data) {
+    public ResponseEntity<?> agregarAlumno(@RequestBody @Valid GuardarPersona data) {
         EntityModel<Alumno> entityModel = assembler.toModel(
                 service.guardarAlumno(data));
         return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
@@ -62,11 +62,7 @@ public class AlumnoController {
                     alumno.setDatosContacto(alumnoNuevo.getDatosContacto());
                     return service.modificarAlumno(alumno);
                 })
-                .orElseGet(() -> {
-                    System.out.println("orelseGet");
-                    alumnoNuevo.setId(id);
-                    return service.modificarAlumno(alumnoNuevo);
-                });
+                .orElseThrow(() -> new AlumnoNotFoundException(id));
 
         EntityModel<Alumno> entityModel = assembler.toModel(alumnoActualizado);
         return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
